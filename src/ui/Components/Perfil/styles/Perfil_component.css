@@ -1,0 +1,45 @@
+/* Estilos gerais */
+.form_container {
+    padding: 50px;
+    border-radius: 8px;
+    background-color: #fff;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Media query para telas menores */
+@media (max-width: 768px) {
+    .form_container {
+        padding: 20px;
+    }
+    
+    .Perfil h1 {
+        font-size: 1.5rem; /* Ajusta o tamanho do título */
+    }
+
+    .form_container .mb-2 {
+        margin-bottom: 1rem;
+    }
+    
+    .form_container label {
+        font-size: 1rem; /* Ajusta o tamanho da fonte dos labels */
+    }
+    
+    .form_container input {
+        font-size: 1rem; /* Ajusta o tamanho da fonte dos inputs */
+    }
+    
+    .form_container .d-flex {
+        flex-direction: column; /* Empilha os botões verticalmente */
+        gap: 0.5rem;
+    }
+    
+    .form_container .d-flex button {
+        width: 100%; /* Ajusta a largura dos botões para 100% */
+    }
+
+    .id_profile_alterar{
+        font-size: 15px;
+    }
+}

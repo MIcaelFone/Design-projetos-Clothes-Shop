@@ -1,0 +1,37 @@
+.navbar{
+    background-color: #555b61;
+}
+
+.Brand, .list_item{
+    color: #fff !important;
+    transition: transform .2s;
+}
+
+.Searchbar{
+    color: #fff !important;
+}
+
+
+.list_item:hover{
+    color: tomato !important;
+    transform: scale(1.2);
+}
+
+.ms-auto{
+    gap: 36px;
+}
+
+.botao_cadastro{
+    background-color: tomato !important;
+    border: none;
+    border-radius: 20px;
+}
+
+
+button.navbar-toggler.collapsed{
+    background-color: #fff !important;
+}
+
+button.navbar-toggler{
+    background-color: #fff !important;
+}

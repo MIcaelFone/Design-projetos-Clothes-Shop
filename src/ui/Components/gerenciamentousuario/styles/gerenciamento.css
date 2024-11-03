@@ -1,0 +1,23 @@
+/* styles/gerenciamentoRoupa.css */
+.gerenciamento-roupa-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.gerenciamento-roupa-card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.gerenciamento-roupa-card-container .gerenciamento-roupa-card {
+    width: 100%;
+    transition: transform 0.2s;
+}
+
+.gerenciamento-roupa-card-container .gerenciamento-roupa-card:hover {
+    transform: scale(1.05);
+}

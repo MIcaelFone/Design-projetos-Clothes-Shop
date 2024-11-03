@@ -1,0 +1,65 @@
+.promo-text {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap; /* Adicionado para permitir quebra de linha */
+    gap: 10px; /* Adicionado para espaço entre os itens */
+    text-align: center;
+  }
+  
+  .divider {
+    width: 2px;
+    height: 50px;
+    background-color: black;
+  }
+  
+  .Image {
+    height: auto;
+    width: 100%;
+  }
+  
+  .banner-image {
+    height: 250px; /* Set a fixed height for consistency */
+    width: auto;
+  }
+  
+  .brand-image {
+    height: 150px; /* Set a fixed height for consistency */
+    width: auto;
+  }
+  
+  .email_conpum {
+    background-color: rgb(163, 161, 157);
+    margin-bottom: 1rem;
+    padding: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .promo-text {
+      flex-direction: column; /* Ajusta a direção dos itens para coluna */
+      gap: 5px; /* Espaço menor entre os itens para dispositivos menores */
+    }
+  
+    .divider {
+      width: 50px; /* Ajusta a largura dos divisores para horizontal */
+      height: 2px;
+    }
+  
+    .email_conpum {
+      text-align: center;
+    }
+  
+    .email_conpum > div {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .email_conpum h3 {
+      margin-right: 0;
+    }
+  
+    .email_conpum InputGroup {
+      width: 100%;
+      max-width: 20rem;
+    }
+  }

@@ -1,0 +1,33 @@
+/* Minhascompras.css */
+
+.minhas-compras-container {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .minhas-compras-header {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .compra-card {
+    width: 18rem;
+    margin: 0 auto 20px auto;
+  }
+  
+  .compra-card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .compra-card-text {
+    text-align: left;
+  }
+  
+  .compra-card-button {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
