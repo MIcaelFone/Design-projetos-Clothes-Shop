@@ -1,11 +1,10 @@
 # Design-projetos-Clothes-Shop
  
-
 Este projeto é o frontend desenvolvido para o projeto de Experiência Criativa no 5º período. Ele utiliza React.js e tem como objetivo oferecer uma interface interativa e intuitiva para o usuário. Implementamos dois padrões de projeto para melhorar a organização e manutenção do código: **Componentização** (ou Composição) e **Facade** para as chamadas de API.
 
 ## Padrões de Projeto Utilizados
-
-### 1. Componentização (ou Composição)
+### 1.Componentizando os inputs
+####  Componentização (ou Composição) 
 
 A **Componentização** ajuda a criar componentes isolados e reutilizáveis, simplificando a manutenção e permitindo a reutilização em outras partes do projeto. Utilizamos esse padrão para os campos de formulário, tornando-os componentes individuais e configuráveis.
 
@@ -35,4 +34,7 @@ const InputField = ({ label, value, onChange, placeholder, error, type = "text" 
 );
 
 export default InputField;
+
+```
+
 
