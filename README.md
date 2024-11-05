@@ -11,6 +11,7 @@ A **Componentização** ajuda a criar componentes isolados e reutilizáveis, sim
 #### Componente `InputField`
 
 Criamos um componente chamado `InputField`, que é usado para representar campos de formulário como Nome, E-mail e Senha. Cada campo de formulário é transformado em uma instância de `InputField`, passando as propriedades adequadas.
+![image](https://github.com/user-attachments/assets/d933dd5c-b998-415c-b83b-8f6caf49046f)
 
 ##### Código do `InputField`
 
