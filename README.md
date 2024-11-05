@@ -42,6 +42,55 @@ const InputField = ({ label, value, onChange, placeholder, error, type = "text" 
 export default InputField;
 
 ```
+##### Usando o componente como input
+```javascript
+<InputField
+            label={<FormattedMessage id="formLabels.name" defaultMessage="Nome" />}
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+            placeholder="Digite seu nome"
+            error={erroNome}
+            id="nome"
+         />
+
+         <InputField
+            label={<FormattedMessage id="formLabels.email" defaultMessage="Email" />}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="email@email.com"
+            error={erroEmail}
+            type="email"
+            id="email"
+         />
+
+         <InputField
+            label={<FormattedMessage id="formLabels.password" defaultMessage="Senha" />}
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
+            placeholder="Digite a sua senha"
+            error={erroSenha}
+            type="password"
+            id="senha"
+         />
+
+         <InputField
+            label={<FormattedMessage id="formLabels.confirmPassword" defaultMessage="Confirmar Senha" />}
+            value={confirmaSenha}
+            onChange={(e) => setConfirmaSenha(e.target.value)}
+            placeholder="Confirme sua senha"
+            error={erroConfirmaSenha}
+            type="password"
+            id="confirmaSenha"
+         />
+
+         <InputField
+            label={<FormattedMessage id="formLabels.phone" defaultMessage="Telefone" />}
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="Digite seu telefone"
+            id="phone"
+         />
+```
  ##### Benefícios da Componentização
 
 - **Reutilização**: Os componentes de input podem ser usados em diferentes partes da aplicação.
