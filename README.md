@@ -40,9 +40,10 @@ const InputField = ({ label, value, onChange, placeholder, error, type = "text" 
 export default InputField;
 
 ```
-##### Benefícios da Componentização
-Reutilização: Os componentes de input podem ser usados em diferentes partes da aplicação, mantendo a consistência visual e funcional.
-Facilidade de Manutenção: Alterações no estilo ou no comportamento dos inputs podem ser feitas diretamente nos componentes, atualizando automaticamente todas as instâncias.
-Código Mais Limpo e Organizado: A página Cadastro.js ficou mais legível e enxuta, com menos duplicação de código e uma estrutura mais clara.
-Esta abordagem de componentização ajuda a tornar o projeto mais escalável e sustentável no longo prazo, permitindo que a aplicação cresça de forma organizada e simplificada
+ ##### Benefícios da Componentização
+
+- **Reutilização**: Os componentes de input podem ser usados em diferentes partes da aplicação.
+- **Facilidade de Manutenção**: Alterações no estilo ou no comportamento dos inputs podem ser feitas diretamente nos componentes.
+- **Código Mais Limpo e Organizado**: A página `Cadastro.js` ficou mais legível e enxuta, com menos duplicação de código e uma estrutura mais clara.
+- **Escalabilidade e Sustentabilidade**: Esta abordagem de componentização ajuda a tornar o projeto mais escalável e sustentável no longo prazo.
 
