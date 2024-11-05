@@ -42,7 +42,8 @@ const InputField = ({ label, value, onChange, placeholder, error, type = "text" 
 export default InputField;
 
 ```
-##### Usando o componente como input
+##### Aplicando o InputField no cadastro.js
+No código acima, estamos utilizando o componente InputField para tornar os inputs do formulário mais organizados, reutilizáveis e fáceis de manter. Em vez de definir cada campo de input individualmente, como nome, e-mail, senha, confirmar senha, e telefone, transformamos cada um deles em uma instância do componente InputField, o que simplifica o código e evita a repetição.
 ```javascript
 <InputField
             label={<FormattedMessage id="formLabels.name" defaultMessage="Nome" />}
