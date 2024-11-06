@@ -99,3 +99,11 @@ No código acima, estamos utilizando o componente InputField para tornar os inpu
 - **Código Mais Limpo e Organizado**: A página `Cadastro.js` ficou mais legível e enxuta, com menos duplicação de código e uma estrutura mais clara.
 - **Escalabilidade e Sustentabilidade**: Esta abordagem de componentização ajuda a tornar o projeto mais escalável e sustentável no longo prazo.
 
+
+## 2. Criação da Funções  para as chamadas de API Resquest(FACADE)
+ 
+O padrão Facade é uma técnica de design que cria uma interface simplificada e unificada para um conjunto de funcionalidades complexas ou diversas em um sistema. A ideia central do Facade é esconder a complexidade das interações internas e fornecer uma interface de mais fácil uso para o consumidor final do código.
+
+A função apiRequest centraliza as chamadas à API,Usar o padrão Facade para centralizar as chamadas à API em uma função apiRequest ajuda a simplificar o código e reduzir a duplicação de lógica para fazer requisições HTTP. Essa função pode tratar questões comuns, como cabeçalhos, URL base, e tratamento de erros.
+![image](https://github.com/user-attachments/assets/4d2c1b00-e1d4-4b35-9828-653302e1a465)
+ ![image](https://github.com/user-attachments/assets/c00351da-22f5-44f4-8af5-c37ac95b3957)
