@@ -183,4 +183,88 @@ const buscandocartao = async () => {
 3. **Maior Manutenibilidade**:
    - Qualquer mudança nos requisitos de chamada, como URL base ou configuração de cabeçalhos, pode ser atualizada apenas na `apiRequest`.
 
+## 3. Implementação do Padrão Observer para Notificações
 
+ O  **padrão Observer** serve para resolver o problema de notificação de mudanças de estado em um sistema de maneira eficiente e desacoplada. Em outras palavras, ele permite que um objeto (sujeito) notifique automaticamente outros objetos dependentes (observadores) sobre mudanças de seu estado, sem que o sujeito precise saber ou se preocupar com os detalhes de quem está sendo notificado.
+ 
+ O código do arquivo Cart.js possui notificações acopladas diretamente às funções que manipulam o carrinho, como `handleRemoveFromCart` e `clearCart`. Isso torna o código menos flexível e dificultando a manutenção. Para resolver problema criamos um arquivo observer.js com objetivo de implementar o observer
+### Antes
+As notificações `notifyRemovedFromCart` e `notifyCartCleared` eram chamadas diretamente nas funções que manipulavam os itens no carrinho:
+![image](https://github.com/user-attachments/assets/66c996f0-1645-4bf2-bd1f-b2fe5af8cf2a)
+
+### Implementando Observer no observer.js
+ ```javascript
+// observer.js
+const events = {};
+
+export const subscribe = (event, callback) => {
+    if (!events[event]) {
+        events[event] = [];
+    }
+    events[event].push(callback);
+};
+
+export const unsubscribe = (event, callback) => {
+    if (!events[event]) return;
+    events[event] = events[event].filter(cb => cb !== callback);
+};
+
+export const notify = (event, data) => {
+    if (!events[event]) return;
+    events[event].forEach(callback => callback(data));
+};
+
+```
+### Implementando o observer no cart.js
+```javascript
+### Usando o observer.js no cart.js
+
+import { subscribe, unsubscribe, notify } from '../../config/observer';
+import { useEffect } from 'react';
+
+export default function Cart({ showModal, toggle }) {
+    const notifyEvent = (message) => toast.error(message, {
+        position: 'top-center',
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'colored',
+        style: { backgroundColor: '#000', color: '#fff' }
+    });
+
+    // useEffect para gerenciar a inscrição e cancelamento no Observer
+    useEffect(() => {
+        const onItemRemoved = (item) => notifyEvent(`${item.nome} removed from cart!`);
+        const onCartCleared = () => notifyEvent('Cart cleared!');
+
+        subscribe('itemRemoved', onItemRemoved);
+        subscribe('cartCleared', onCartCleared);
+
+        return () => {
+            unsubscribe('itemRemoved', onItemRemoved);
+            unsubscribe('cartCleared', onCartCleared);
+        };
+    }, []);
+
+    const handleRemoveFromCart = (product) => {
+        removeFromCart(product);
+        notify('itemRemoved', product); // Notifica a remoção de um item do carrinho
+    };
+
+    const clearCartHandler = () => {
+        clearCart();
+        notify('cartCleared'); // Notifica que o carrinho foi esvaziado
+    };
+}
+```
+
+### Benefícios da Implementação do padrão Observer
+
+1. **Desacoplamento:**
+-Separa a lógica de manipulação de dados das notificações.
+2. **Reutilização de Código:**
+-Permite o uso do mesmo mecanismo de notificação em diferentes componentes, sem duplicar o código.
+3. **Notificações em Tempo Real:**
+- Garante que a interface reaja instantaneamente as mudanças.
