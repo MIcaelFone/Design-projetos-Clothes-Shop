@@ -4,12 +4,12 @@ Este projeto é o frontend desenvolvido para o projeto de Experiência Criativa 
 
 # Padrões de Projeto Utilizados
 
+## Motivo da escolhas de cada padrão de projeto:
+Eu acredito que essas melhorias são importantes para tornar o código mais modular, escalável e fácil de manter. Componentizar os inputs vai me ajudar a reutilizar a lógica dos campos de entrada, evitando duplicação de código e facilitando a manutenção. Criar funções para as chamadas de API usando o padrão Facade vai centralizar a lógica das requisições, tornando a manutenção mais fácil e permitindo alterações sem impacto em outras partes do código. Implementar o padrão Observer vai tornar o gerenciamento das notificações mais eficiente, permitindo que eu notifique as partes da aplicação sem ter que verificar manualmente em cada lugar. Usar o padrão Strategy para a validação do modal de cartão vai me dar mais flexibilidade, permitindo adicionar novas regras de validação sem complicar o código. E, por fim, adicionar uma Factory para notificações vai garantir consistência na criação delas e facilitar a adição de novos tipos no futuro, mantendo o código mais organizado e centralizado.
+
 ## 1.Componentizando os inputs
 
-
 A **Componentização** ajuda a criar componentes isolados e reutilizáveis, simplificando a manutenção e permitindo a reutilização em outras partes do projeto. Utilizamos esse padrão para os campos de formulário, tornando-os componentes individuais e configuráveis.
-
-##### Componente `InputField`
 
 Criamos um componente chamado `InputField`, que é usado para representar campos de formulário como Nome, E-mail e Senha. Cada campo de formulário é transformado em uma instância de `InputField`, passando as propriedades adequadas.
 Neste projeto, refatoramos a página Cadastro.js para melhorar a estrutura do código e evitar a repetição de elementos de entrada (inputs). Originalmente, os campos de formulário (como nome, e-mail e senha) estavam sendo definidos repetidamente no código, o que resultava em redundância e dificultava a manutenção.
@@ -19,7 +19,7 @@ Neste projeto, refatoramos a página Cadastro.js para melhorar a estrutura do c�
 
    Para resolver esse problema, decidimos componentizar os inputs, transformando cada campo de entrada em um componente reutilizável. Agora, o Cadastro.js importa e usa esses componentes ao invés de definir cada input diretamente, tornando o código mais modular e fácil de gerenciar.
 
-##### Código do `InputField`
+##### Código do componente `InputField`
 
 ```javascript
 // components/InputField.js
@@ -102,8 +102,8 @@ No código acima, estamos utilizando o componente InputField para tornar os inpu
 
 
  
- ## 2. Criação da Funções  para as chamadas de API Resquest(Facade)
- 
+ ## 2. Criação da Funções  para as chamadas de API Resquest(Facade) 
+
  O **padrão Facade** é uma técnica de design que cria uma interface simplificada e unificada para gerenciar operações complexas em um sistema. Ao utilizar o Facade, escondemos a complexidade de interações internas e fornecemos uma interface de fácil uso para o consumidor final do código.
 
 A função apiRequest centraliza as chamadas à API,Usar o padrão Facade para centralizar as chamadas à API em uma função apiRequest ajuda a simplificar o código e reduzir a duplicação de lógica para fazer requisições HTTP. Essa função pode tratar questões comuns, como cabeçalhos, URL base, e tratamento de erros.
