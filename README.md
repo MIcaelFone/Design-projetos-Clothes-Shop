@@ -319,7 +319,10 @@ const CadastraCartao = async () => {
 ### Benificios do padrão Strategy
 1. **Flexibilidade**:
 -Permite adicionar, remover ou modificar comportamentos sem alterar a estrutura principal do código.
--**Organização**: O código fica limpo e fácil de entender, com lógicas separadas.
--**Estratégias** :Podem ser reutilizadas em diferentes contextos.
--**Testabilidade**: Facilita o teste unitário, pois cada comportamento pode ser testado de forma independente.
+2.**Organização**:
+-O código fica limpo e fácil de entender, com lógicas separadas.
+3.**Estratégias**:
+-Podem ser reutilizadas em diferentes contextos.
+4.**Testabilidade**
+-Facilita o teste unitário, pois cada comportamento pode ser testado de forma independente.
 
