@@ -326,4 +326,168 @@ const CadastraCartao = async () => {
 4.**Testabilidade**
 -Facilita o teste unitário, pois cada comportamento pode ser testado de forma independente.
 
-###  
+### 5. Adicionar uma Função Factory para Notificações
+
+**Factory** é um padrão criacional fornecem uma interface para criar objetos em uma superclasse, mas permite as subclasses alterem o tipo de objetos que serão criados.
+No arquivo CardProductMasculino.js (ou em um novo arquivo notificationFactory.js para modularizar ainda mais), adicionando a função Factory createToastNotification.
+```javascript
+// notificationFactory.js
+
+import { toast } from 'react-toastify';
+import { FormattedMessage } from 'react-intl';
+
+export const createToastNotification = (type, item) => {
+    const options = {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'colored'
+    };
+
+    if (type === 'add') {
+        toast.success(
+            <> {item.nome} <FormattedMessage id='adicao_produto' /> </>,
+            { 
+                ...options, 
+                style: { backgroundColor: '#fff', color: '#000' } 
+            }
+        );
+    } else if (type === 'remove') {
+        toast.error(
+            <> {item.nome} <FormattedMessage id='removendo_produto' /> </>,
+            { 
+                ...options, 
+                style: { backgroundColor: '#000', color: '#fff' } 
+            }
+        );
+    }
+};
+```
+No arquivo CardProductMasculino.js, substituimos as notificações manuais por chamadas à createToastNotification: 
+
+```javascript
+import React, { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { FormattedMessage } from 'react-intl';
+import { FaShoppingCart } from "react-icons/fa";
+import { CartContext } from '../../Carrinhoprodutos/config/Cartprovider';
+import { createToastNotification } from './notificationFactory'; // Importa a Factory
+import '../styles/tela_produtos.css';
+
+function CardProductMasculino() {
+    const [produtos, setProdutos] = useState([]);
+    const { cartItems, addToCart, removeFromCart } = useContext(CartContext);
+
+    const truncateText = (text, maxLength) => {
+        if (text.length <= maxLength) return text;
+        return text.slice(0, maxLength) + '...';
+    };
+
+    const detailproduct = (nome) => {
+        window.location.href = `/roupa/${nome}`;
+    };
+
+    const handleAddToCart = (produto) => {
+        addToCart(produto);
+        createToastNotification('add', produto); // Usando a Factory para notificação de adição
+    };
+
+    const handleRemoveFromCart = (produto) => {
+        removeFromCart(produto);
+        createToastNotification('remove', produto); // Usando a Factory para notificação de remoção
+    };
+
+    useEffect(() => {
+        const fetchProdutos = async () => {
+            try {
+                const response = await axios.get("http://localhost:8080/produto/produtosmasculino");
+                if (response.status === 200) {
+                    setProdutos(response.data);
+                }
+            } catch (error) {
+                console.error("Erro ao buscar produtos:", error);
+            }
+        };
+        fetchProdutos();
+    }, []);
+
+    return (
+        <div>
+            <center>
+                <h1><FormattedMessage id="produtosmasculino_title"></FormattedMessage></h1>
+            </center>
+            <div className="card-container">
+                {produtos.map((produto) => (
+                    <Card className="card-product" key={produto.idproduto}>
+                        <Card.Body className="card-body">
+                            <Card.Title className="card-title">{truncateText(produto.nome, 20)}</Card.Title>
+                            <div className="card-text">
+                                <h3 style={{ fontSize: '1.3rem' }}>
+                                    <FormattedMessage id='money'></FormattedMessage> {produto.preco}
+                                </h3>
+                            </div>
+                            <div className="button-container">
+                                <Button className="button button-primary" onClick={() => { detailproduct(produto.nome); }}>
+                                    <FormattedMessage id='about_produto'></FormattedMessage>
+                                </Button>
+                                {
+                                    cartItems.find(item => item.nome === produto.nome) ? (
+                                        <div className="quantity-container">
+                                            <button
+                                                className="button button-secondary"
+                                                onClick={() => {
+                                                    handleAddToCart(produto);
+                                                }}
+                                            >
+                                                +
+                                            </button>
+                                            <p className='quantity-text'>
+                                                {cartItems.find(item => item.nome === produto.nome)?.quantity}
+                                            </p>
+                                            <button
+                                                className="button button-secondary"
+                                                onClick={() => {
+                                                    const cartItem = cartItems.find((item) => item.nome === produto.nome);
+                                                    if (cartItem.quantity === 1) {
+                                                        handleRemoveFromCart(produto);
+                                                    } else {
+                                                        removeFromCart(produto);
+                                                    }
+                                                }}
+                                            >
+                                                -
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <FaShoppingCart
+                                            size={35}
+                                            style={{ marginLeft: '10px', color: 'black', cursor: 'pointer' }}
+                                            onClick={() => {
+                                                handleAddToCart(produto);
+                                            }}
+                                        />
+                                    )
+                                }
+                            </div>
+                        </Card.Body>
+                    </Card>
+                ))}
+            </div>
+        </div>
+    );
+}
+export default CardProductMasculino;
+```
+### Benificios do padrão Factory
+1. **Encapsulamento da Lógica de Criação**
+A criação dos objetos fica isolada na fábrica, simplificando o código principal.
+2. **Facilidade de Manutenção**
+Alterações são feitas apenas na fábrica, facilitando a manutenção em sistemas grandes.
+3. **Reutilização de Código**
+Evita duplicação de código ao centralizar a criação de objetos semelhantes.
