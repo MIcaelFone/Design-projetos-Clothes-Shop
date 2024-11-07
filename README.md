@@ -1,4 +1,4 @@
-# Design-projetos-Clothes-Shop
+# Padrões-projetos-Clothes-Shop
  
 Este projeto é o frontend desenvolvido para o projeto de Experiência Criativa no 5º período. Ele utiliza React.js e tem como objetivo oferecer uma interface interativa e intuitiva para o usuário. Implementamos cinco padrões de projeto para melhorar a organização e manutenção do código: **Componentização** (ou Composição) ,**Facade** ,**Observer**,**Strategy** e **Factory**.
 
