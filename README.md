@@ -2,13 +2,14 @@
  
 Este projeto é o frontend desenvolvido para o projeto de Experiência Criativa no 5º período. Ele utiliza React.js e tem como objetivo oferecer uma interface interativa e intuitiva para o usuário. Implementamos cinco padrões de projeto para melhorar a organização e manutenção do código: **Componentização** (ou Composição) ,**Facade** ,**Observer**,**Strategy** e **Factory**.
 
-## Padrões de Projeto Utilizados
-### 1.Componentizando os inputs
-####  Componentização (ou Composição) 
+# Padrões de Projeto Utilizados
+
+## 1.Componentizando os inputs
+
 
 A **Componentização** ajuda a criar componentes isolados e reutilizáveis, simplificando a manutenção e permitindo a reutilização em outras partes do projeto. Utilizamos esse padrão para os campos de formulário, tornando-os componentes individuais e configuráveis.
 
-#### Componente `InputField`
+##### Componente `InputField`
 
 Criamos um componente chamado `InputField`, que é usado para representar campos de formulário como Nome, E-mail e Senha. Cada campo de formulário é transformado em uma instância de `InputField`, passando as propriedades adequadas.
 Neste projeto, refatoramos a página Cadastro.js para melhorar a estrutura do código e evitar a repetição de elementos de entrada (inputs). Originalmente, os campos de formulário (como nome, e-mail e senha) estavam sendo definidos repetidamente no código, o que resultava em redundância e dificultava a manutenção.
@@ -112,7 +113,7 @@ A função apiRequest centraliza as chamadas à API,Usar o padrão Facade para c
 Melhorar modularidade e manutenção: quaisquer mudanças na configuração de chamadas podem ser feitas diretamente na apiRequest, sem necessidade de modificar cada função individualmente.
   Para resolver esses problemas, implementamos o padrão Facade na forma de uma função apiRequest. Esta função centraliza as chamadas de API, simplificando o código e eliminando duplicações ao fornecer uma interface unificada e consistente  todos os cabeçalhos, URL base e tratamento de erros são definidos em um único local. 
 
- ### Implementação do Facade com `apiRequest`
+ ##### Implementação do Facade com `apiRequest`
  ```javascript
 
 async function apiRequest(url, method, data = {}) {
@@ -135,10 +136,8 @@ async function apiRequest(url, method, data = {}) {
 export default apiRequest;
 
 ```
- 
 Com apiRequest implementado, simplificamos as funções de API no Editacartao.js ao substituir as chamadas diretas por chamadas à função Facade. Cada função específica se torna mais direta e legível:
 
-  
  ```javascript
 const buscandocartao = async () => {
         try {
@@ -173,7 +172,7 @@ const buscandocartao = async () => {
     };
 ```
 
-### Benefícios da Implementação Facade
+##### Benefícios da Implementação Facade
 
 1. **Melhoria na Modularidade e Manutenção**:
    - Alterações na configuração de chamadas podem ser feitas diretamente na função `apiRequest`, sem a necessidade de modificar cada função individualmente.
@@ -191,11 +190,11 @@ const buscandocartao = async () => {
  
  O código do arquivo Cart.js possui notificações acopladas diretamente às funções que manipulam o carrinho, como `handleRemoveFromCart` e `clearCart`. Isso torna o código menos flexível e dificultando a manutenção. Para resolver problema criamos um arquivo observer.js com objetivo de implementar o observer.
  
-### Antes
+##### Antes
 As notificações `notifyRemovedFromCart` e `notifyCartCleared` eram chamadas diretamente nas funções que manipulavam os itens no carrinho:
 ![image](https://github.com/user-attachments/assets/66c996f0-1645-4bf2-bd1f-b2fe5af8cf2a)
 
-### Implementando o Observer
+##### Implementando o Observer
  ```javascript
 // observer.js
 const events = {};
@@ -218,7 +217,7 @@ export const notify = (event, data) => {
 };
 
 ```
-### Implementando o observer no cart.js
+##### Implementando o observer no cart.js
 ```javascript
 ### Usando o observer.js no cart.js
 
@@ -263,7 +262,7 @@ export default function Cart({ showModal, toggle }) {
 }
 ```
 
-### Benefícios da Implementação do padrão Observer
+##### Benefícios da Implementação do padrão Observer
 
 1. **Desacoplamento:**
 -Separa a lógica de manipulação de dados das notificações.
@@ -272,14 +271,15 @@ export default function Cart({ showModal, toggle }) {
 3. **Notificações em Tempo Real:**
 - Garante que a interface reaja instantaneamente as mudanças.
 
-## 4.Aplicando o Padrão Strategy para Validação do modal de cartão ##
+## 4.Aplicando o Padrão Strategy para Validação do modal de cartão 
+  
   O padrão **Strategy** permite definir uma família de algoritmos ou comportamentos intercambiáveis, encapsulando cada um deles em classes separadas, para que possam ser utilizados de forma flexível e 
   independente.
   No código original do arquivo CartaoModal.js, a função validateInfo é responsável por verificar cada campo dos dados do cartão. Podemos aplicar o padrão Strategy aqui ao separar as validações específicas 
   de cada campo.
   ![image](https://github.com/user-attachments/assets/23ed43fb-fcac-4a1c-856e-16d636805837)
   No novo código, definimos um objeto validationStrategies para separar as validações de cada campo individualmente, tornando o processo de validação mais modular e fácil de atualizar.
-  ### Transformando em Strategy: 
+  ##### Transformando em Strategy: 
   ```javascript
  const validationStrategies = {
   name: (value) => (!value ? { variant: 'danger', message: 'Nome é obrigatório' } : null),
@@ -297,7 +297,7 @@ const validateInfo = (data) => {
   return errors;
 };
 ```
-### Utilizando o objeto validationStrategies na validações:
+##### Utilizando o objeto validationStrategies na validações:
  ```javascript
 const CadastraCartao = async () => {
   try {
@@ -316,7 +316,7 @@ const CadastraCartao = async () => {
   }
 };
 ```
-### Benificios do padrão Strategy
+##### Benificios do padrão Strategy
 1. **Flexibilidade**:
 -Permite adicionar, remover ou modificar comportamentos sem alterar a estrutura principal do código.
 2.**Organização**:
@@ -326,11 +326,11 @@ const CadastraCartao = async () => {
 4.**Testabilidade**
 -Facilita o teste unitário, pois cada comportamento pode ser testado de forma independente.
 
-### 5. Adicionar uma Função Factory para Notificações
+## 5. Adicionar uma Função Factory para Notificações
 
 **Factory** é um padrão criacional fornecem uma interface para criar objetos em uma superclasse, mas permite as subclasses alterem o tipo de objetos que serão criados.
 
-## Código atual da tela_produto_masculino.js
+### Código atual da tela_produto_masculino.js
 ```javascript
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
@@ -484,7 +484,7 @@ export default CardProductMasculino;
 
 Para modularizar e otimizar o código do componente tela_produto_masculino.js, podemos implementar uma função Factory chamada createToastNotification em um novo arquivo notificationFactory.js
 
-## Implementando a função factory
+##### Implementando a função factory
 ```javascript
 // notificationFactory.js
 
@@ -639,7 +639,7 @@ function CardProductMasculino() {
 }
 export default CardProductMasculino;
 ```
-### Benificios do padrão Factory
+##### Benificios do padrão Factory
 1. **Encapsulamento da Lógica de Criação**
 A criação dos objetos fica isolada na fábrica, simplificando o código principal.
 2. **Facilidade de Manutenção**
