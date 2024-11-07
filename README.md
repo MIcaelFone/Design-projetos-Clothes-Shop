@@ -172,6 +172,7 @@ const buscandocartao = async () => {
         }
     };
 ```
+
 ### Benefícios da Implementação Facade
 
 1. **Melhoria na Modularidade e Manutenção**:
@@ -183,11 +184,13 @@ const buscandocartao = async () => {
 3. **Maior Manutenibilidade**:
    - Qualquer mudança nos requisitos de chamada, como URL base ou configuração de cabeçalhos, pode ser atualizada apenas na `apiRequest`.
 
+
 ## 3. Implementação do Padrão Observer para Notificações
 
  O  **padrão Observer** serve para resolver o problema de notificação de mudanças de estado em um sistema de maneira eficiente e desacoplada. Em outras palavras, ele permite que um objeto (sujeito) notifique automaticamente outros objetos dependentes (observadores) sobre mudanças de seu estado, sem que o sujeito precise saber ou se preocupar com os detalhes de quem está sendo notificado.
  
- O código do arquivo Cart.js possui notificações acopladas diretamente às funções que manipulam o carrinho, como `handleRemoveFromCart` e `clearCart`. Isso torna o código menos flexível e dificultando a manutenção. Para resolver problema criamos um arquivo observer.js com objetivo de implementar o observer
+ O código do arquivo Cart.js possui notificações acopladas diretamente às funções que manipulam o carrinho, como `handleRemoveFromCart` e `clearCart`. Isso torna o código menos flexível e dificultando a manutenção. Para resolver problema criamos um arquivo observer.js com objetivo de implementar o observer.
+ 
 ### Antes
 As notificações `notifyRemovedFromCart` e `notifyCartCleared` eram chamadas diretamente nas funções que manipulavam os itens no carrinho:
 ![image](https://github.com/user-attachments/assets/66c996f0-1645-4bf2-bd1f-b2fe5af8cf2a)
@@ -268,3 +271,18 @@ export default function Cart({ showModal, toggle }) {
 -Permite o uso do mesmo mecanismo de notificação em diferentes componentes, sem duplicar o código.
 3. **Notificações em Tempo Real:**
 - Garante que a interface reaja instantaneamente as mudanças.
+
+## 4.Aplicando o Padrão Strategy para Validação ##
+  O padrão **Strategy** permite definir uma família de algoritmos ou comportamentos intercambiáveis, encapsulando cada um deles em classes separadas, para que possam ser utilizados de forma flexível e independente.
+  No código original, a função validateInfo é responsável por verificar cada campo dos dados do cartão. Podemos aplicar o padrão Strategy aqui ao separar as validações específicas de cada campo.
+  ![image](https://github.com/user-attachments/assets/23ed43fb-fcac-4a1c-856e-16d636805837)
+  
+  ### Implementando a ideia de Strategy na validação
+  ```javascript
+  const validationStrategies = {
+  name: (value) => (!value ? { variant: 'danger', message: 'Nome é obrigatório' } : null),
+  number: (value) => (!value ? { variant: 'danger', message: 'Número do cartão é obrigatório' } : null),
+  expiry: (value) => (!value ? { variant: 'danger', message: 'Validade é obrigatória' } : null),
+  cvc: (value) => (!value ? { variant: 'danger', message: 'Código de segurança é obrigatório' } : null),
+};
+```
