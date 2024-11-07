@@ -1,6 +1,6 @@
 # Design-projetos-Clothes-Shop
  
-Este projeto é o frontend desenvolvido para o projeto de Experiência Criativa no 5º período. Ele utiliza React.js e tem como objetivo oferecer uma interface interativa e intuitiva para o usuário. Implementamos dois padrões de projeto para melhorar a organização e manutenção do código: **Componentização** (ou Composição) e **Facade** para as chamadas de API.
+Este projeto é o frontend desenvolvido para o projeto de Experiência Criativa no 5º período. Ele utiliza React.js e tem como objetivo oferecer uma interface interativa e intuitiva para o usuário. Implementamos cinco padrões de projeto para melhorar a organização e manutenção do código: **Componentização** (ou Composição) ,**Facade** ,**Observer**,**Strategy**.
 
 ## Padrões de Projeto Utilizados
 ### 1.Componentizando os inputs
@@ -272,17 +272,57 @@ export default function Cart({ showModal, toggle }) {
 3. **Notificações em Tempo Real:**
 - Garante que a interface reaja instantaneamente as mudanças.
 
-## 4.Aplicando o Padrão Strategy para Validação ##
-  O padrão **Strategy** permite definir uma família de algoritmos ou comportamentos intercambiáveis, encapsulando cada um deles em classes separadas, para que possam ser utilizados de forma flexível e independente.
-  No código original, a função validateInfo é responsável por verificar cada campo dos dados do cartão. Podemos aplicar o padrão Strategy aqui ao separar as validações específicas de cada campo.
+## 4.Aplicando o Padrão Strategy para Validação do modal de cartão ##
+  O padrão **Strategy** permite definir uma família de algoritmos ou comportamentos intercambiáveis, encapsulando cada um deles em classes separadas, para que possam ser utilizados de forma flexível e 
+  independente.
+  No código original do arquivo CartaoModal.js, a função validateInfo é responsável por verificar cada campo dos dados do cartão. Podemos aplicar o padrão Strategy aqui ao separar as validações específicas 
+  de cada campo.
   ![image](https://github.com/user-attachments/assets/23ed43fb-fcac-4a1c-856e-16d636805837)
-  
-  ### Implementando a ideia de Strategy na validação
+  No novo código, definimos um objeto validationStrategies para separar as validações de cada campo individualmente, tornando o processo de validação mais modular e fácil de atualizar.
+  ### Transformando em Strategy: 
   ```javascript
-  const validationStrategies = {
+ const validationStrategies = {
   name: (value) => (!value ? { variant: 'danger', message: 'Nome é obrigatório' } : null),
   number: (value) => (!value ? { variant: 'danger', message: 'Número do cartão é obrigatório' } : null),
   expiry: (value) => (!value ? { variant: 'danger', message: 'Validade é obrigatória' } : null),
   cvc: (value) => (!value ? { variant: 'danger', message: 'Código de segurança é obrigatório' } : null),
 };
+
+const validateInfo = (data) => {
+  const errors = {};
+  Object.keys(data).forEach((key) => {
+    const error = validationStrategies[key](data[key]);
+    if (error) errors[key] = error;
+  });
+  return errors;
+};
 ```
+### Utilizando o objeto validationStrategies na validações:
+ ```javascript
+const CadastraCartao = async () => {
+  try {
+    const response = await axios.post("http://localhost:8080/cartao/cadastrarcartao", {
+      nome: values.name,
+      numerocartao: values.number,
+      expiry: values.expiry,
+      cvc: values.cvc,
+      idusuario: userId
+    });
+    if (response.status === 201) {
+      toast.success("Cartão inserido com sucesso");
+    }
+  } catch (error) {
+    toast.error("Cartão não pode ser cadastrado");
+  }
+};
+```
+### Benificios do padrão Strategy
+1.**Flexibilidade**: 
+-Permite adicionar, remover ou modificar comportamentos sem alterar a estrutura principal do código.
+2.**Organização**: 
+-O código fica limpo e fácil de entender, com lógicas separadas.
+3 **Estratégias** 
+-Podem ser reutilizadas em diferentes contextos.
+4.**Testabilidade**: 
+-Facilita o teste unitário, pois cada comportamento pode ser testado de forma independente.
+
