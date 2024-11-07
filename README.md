@@ -195,7 +195,7 @@ const buscandocartao = async () => {
 As notificações `notifyRemovedFromCart` e `notifyCartCleared` eram chamadas diretamente nas funções que manipulavam os itens no carrinho:
 ![image](https://github.com/user-attachments/assets/66c996f0-1645-4bf2-bd1f-b2fe5af8cf2a)
 
-### Implementando Observer no observer.js
+### Implementando o Observer
  ```javascript
 // observer.js
 const events = {};
